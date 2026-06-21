@@ -43,7 +43,7 @@ jobs:
         run: |
           gh api --method PATCH \
             -H "Accept: application/vnd.github+json" \
-            "/orgs/amanibey/packages/container/cozy-sub2api/visibility" \
+            "/users/amanibey/packages/container/cozy-sub2api/visibility" \
             -f visibility=public
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -54,8 +54,12 @@ jobs:
           host: 47.79.35.235
           username: root
           key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            cd /opt/1panel/apps/sub2api/sub2api
-            docker compose pull
-            docker compose up -d
-            docker image prune -f
+          envs: GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          echo "$GITHUB_TOKEN" | docker login ghcr.io -u amanibey --password-stdin
+          cd /opt/1panel/apps/sub2api/sub2api
+          docker compose pull
+          docker compose up -d
+          docker image prune -f
