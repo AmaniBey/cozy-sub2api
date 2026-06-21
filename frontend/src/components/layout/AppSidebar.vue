@@ -7,15 +7,15 @@
     ]"
   >
     <!-- Logo/Brand -->
-    <div class="sidebar-header" :class="{ 'sidebar-header-collapsed': sidebarCollapsed }">
-      <!-- Custom Logo or Default Logo -->
-      <div class="sidebar-logo flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl shadow-glow">
-        <img v-if="settingsLoaded" :src="siteLogo || '/logo.png'" alt="Logo" class="h-full w-full object-contain" />
-      </div>
-      <div class="sidebar-brand" :class="{ 'sidebar-brand-collapsed': sidebarCollapsed }" :aria-hidden="sidebarCollapsed ? 'true' : 'false'">
-        <span class="sidebar-brand-title text-lg font-bold text-gray-900 dark:text-white">
-          {{ siteName }}
-        </span>
+      <div class="sidebar-header" :class="{ 'sidebar-header-collapsed': sidebarCollapsed }">
+        <!-- Custom Logo or Default Logo -->
+        <div class="sidebar-logo flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl border border-[#5f472f] bg-[#222222] shadow-glow">
+          <img v-if="settingsLoaded" :src="siteLogo || '/logo.png'" alt="Logo" class="h-full w-full object-contain" />
+        </div>
+        <div class="sidebar-brand" :class="{ 'sidebar-brand-collapsed': sidebarCollapsed }" :aria-hidden="sidebarCollapsed ? 'true' : 'false'">
+          <span class="sidebar-brand-title text-lg font-semibold tracking-wide text-white">
+            {{ siteName }}
+          </span>
         <!-- Version Badge -->
         <VersionBadge :version="siteVersion" />
       </div>
@@ -140,16 +140,16 @@
     </nav>
 
     <!-- Bottom Section -->
-    <div class="mt-auto border-t border-gray-100 p-3 dark:border-dark-800">
+      <div class="mt-auto border-t border-[#2a2a2a] p-3">
       <!-- Theme Toggle -->
-      <button
-        @click="toggleTheme"
-        class="sidebar-link mb-2 w-full"
-        :class="{ 'sidebar-link-collapsed': sidebarCollapsed }"
-        :title="sidebarCollapsed ? (isDark ? t('nav.lightMode') : t('nav.darkMode')) : undefined"
-      >
-        <SunIcon v-if="isDark" class="h-5 w-5 flex-shrink-0 text-amber-500" />
-        <MoonIcon v-else class="h-5 w-5 flex-shrink-0" />
+        <button
+          @click="toggleTheme"
+          class="sidebar-link mb-2 w-full"
+          :class="{ 'sidebar-link-collapsed': sidebarCollapsed }"
+          :title="sidebarCollapsed ? (isDark ? t('nav.lightMode') : t('nav.darkMode')) : undefined"
+        >
+          <SunIcon v-if="isDark" class="h-5 w-5 flex-shrink-0 text-primary-400" />
+          <MoonIcon v-else class="h-5 w-5 flex-shrink-0" />
         <span class="sidebar-label" :class="{ 'sidebar-label-collapsed': sidebarCollapsed }" :aria-hidden="sidebarCollapsed ? 'true' : 'false'">{{
           isDark ? t('nav.lightMode') : t('nav.darkMode')
         }}</span>
@@ -173,7 +173,7 @@
   <transition name="fade">
     <div
       v-if="mobileOpen"
-      class="fixed inset-0 z-30 bg-black/50 lg:hidden"
+      class="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm lg:hidden"
       @click="closeMobile"
     ></div>
   </transition>
@@ -962,14 +962,14 @@ onMounted(() => {
   right: 0.75rem;
   top: 50%;
   height: 1px;
-  background: rgb(229 231 235);
+  background: rgb(44 44 44);
   opacity: 0;
   transform: translateY(-50%);
   transition: opacity 0.18s ease;
 }
 
 .dark .sidebar-section-title::after {
-  background: rgb(55 65 81);
+  background: rgb(44 44 44);
 }
 
 .sidebar-section-title-text-collapsed {
