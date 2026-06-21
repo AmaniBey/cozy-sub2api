@@ -44,13 +44,12 @@ jobs:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
           SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          GHCR_READ_TOKEN: ${{ secrets.GHCR_READ_TOKEN }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           TOTP_ENCRYPTION_KEY: ${{ secrets.TOTP_ENCRYPTION_KEY }}
         run: |
           missing=0
-          for name in DEPLOY_HOST DEPLOY_USER SERVER_SSH_KEY GHCR_READ_TOKEN POSTGRES_PASSWORD JWT_SECRET TOTP_ENCRYPTION_KEY; do
+          for name in DEPLOY_HOST DEPLOY_USER SERVER_SSH_KEY POSTGRES_PASSWORD JWT_SECRET TOTP_ENCRYPTION_KEY; do
             if [ -z "${!name}" ]; then
               echo "::error::Missing required secret: ${name}"
               missing=1
@@ -79,6 +78,20 @@ jobs:
             ${{ steps.meta.outputs.image }}:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Make GHCR package public
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          IMAGE: ${{ github.event.repository.name }}
+        run: |
+          OWNER_LOWER="$(echo "$OWNER" | tr '[:upper:]' '[:lower:]')"
+          IMAGE_LOWER="$(echo "$IMAGE" | tr '[:upper:]' '[:lower:]')"
+          gh api --method PATCH \
+            -H "Accept: application/vnd.github+json" \
+            "/users/${OWNER_LOWER}/packages/container/${IMAGE_LOWER}/visibility" \
+            -f visibility=public
 
       - name: Prepare remote directory
         uses: appleboy/ssh-action@v1
@@ -146,7 +159,9 @@ jobs:
               } > .env
             fi
 
-            echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
+            if [ -n "$GHCR_TOKEN" ]; then
+              echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
+            fi
 
             if [ -f "$COMPOSE_FILE" ]; then
               sed -i \
