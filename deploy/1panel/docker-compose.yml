@@ -1,7 +1,7 @@
 services:
   sub2api:
     container_name: ${CONTAINER_NAME}
-    image: ghcr.io/amanibey/cozy-sub2api:latest
+    image: ${IMAGE_NAME:-ghcr.io/amanibey/cozy-sub2api:latest}
     restart: unless-stopped
     depends_on:
       postgres:
