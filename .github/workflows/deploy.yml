@@ -54,9 +54,9 @@ jobs:
           host: 47.79.35.235
           username: root
           key: ${{ secrets.SERVER_SSH_KEY }}
-        script: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u amanibey --password-stdin
-          cd /opt/1panel/apps/sub2api/sub2api
-          docker compose pull
-          docker compose up -d
-          docker image prune -f
+          script: |
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u amanibey --password-stdin
+            cd /opt/1panel/apps/sub2api/sub2api
+            docker compose pull
+            docker compose up -d
+            docker image prune -f
