@@ -11,7 +11,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME_LOWER: ghcr.io/amanibey/cozy-sub2api
 
 jobs:
   build-and-deploy:
@@ -35,7 +35,7 @@ jobs:
           context: .
           file: deploy/Dockerfile
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.IMAGE_NAME_LOWER }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -43,7 +43,7 @@ jobs:
         run: |
           gh api --method PATCH \
             -H "Accept: application/vnd.github+json" \
-            "/orgs/${{ github.repository_owner }}/packages/container/${{ github.event.repository.name }}/visibility" \
+            "/orgs/amanibey/packages/container/cozy-sub2api/visibility" \
             -f visibility=public
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
