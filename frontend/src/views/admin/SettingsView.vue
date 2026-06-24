@@ -8366,6 +8366,50 @@ function moveMenuItem(index: number, direction: -1 | 1) {
   });
 }
 
+function getFrontendOrigin(): string {
+  if (typeof window === "undefined") return "";
+  return window.location.origin || `${window.location.protocol}//${window.location.host}`;
+}
+
+function resolveBuiltinCustomMenuUrl(item: (typeof form.custom_menu_items)[number]): string {
+  const id = String(item.id || "").toLowerCase();
+  const label = String(item.label || "").trim().toLowerCase();
+  const url = String(item.url || "").trim().toLowerCase();
+  const origin = getFrontendOrigin();
+  if (!origin) return "";
+
+  if (
+    id.includes("online-chat") ||
+    label.includes("在线聊天") ||
+    label.includes("online chat") ||
+    url.includes("/online-chat.html")
+  ) {
+    return `${origin}/online-chat.html`;
+  }
+
+  if (
+    id.includes("contact-us") ||
+    label.includes("联系我们") ||
+    label.includes("contact us") ||
+    url.includes("/contact-us.html")
+  ) {
+    return `${origin}/contact-us.html`;
+  }
+
+  return "";
+}
+
+function normalizeCustomMenuItemsForSave() {
+  return form.custom_menu_items.map((item, index) => {
+    const builtinUrl = resolveBuiltinCustomMenuUrl(item);
+    return {
+      ...item,
+      url: builtinUrl || item.url,
+      sort_order: index,
+    };
+  });
+}
+
 // Custom endpoint management
 function addEndpoint() {
   form.custom_endpoints.push({ name: "", endpoint: "", description: "" });
@@ -8839,7 +8883,7 @@ async function saveSettings() {
       hide_ccs_import_button: form.hide_ccs_import_button,
       table_default_page_size: form.table_default_page_size,
       table_page_size_options: form.table_page_size_options,
-      custom_menu_items: form.custom_menu_items,
+      custom_menu_items: normalizeCustomMenuItemsForSave(),
       custom_endpoints: form.custom_endpoints,
       frontend_url: form.frontend_url,
       smtp_host: form.smtp_host,

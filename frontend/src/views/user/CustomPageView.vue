@@ -172,8 +172,46 @@ const markdownSlug = computed(() => {
 
 const isMarkdownMode = computed(() => !!markdownSlug.value)
 
+const builtinStaticPageUrl = computed(() => {
+  const item = menuItem.value
+  if (!item || isMarkdownMode.value) return ''
+  const id = String(item.id || '').toLowerCase()
+  const label = String(item.label || '').trim().toLowerCase()
+  const url = String(item.url || '').trim().toLowerCase()
+
+  if (
+    id.includes('online-chat') ||
+    label.includes('在线聊天') ||
+    label.includes('online chat') ||
+    url.includes('/online-chat.html')
+  ) {
+    return `${window.location.origin}/online-chat.html`
+  }
+
+  if (
+    id.includes('contact-us') ||
+    label.includes('联系我们') ||
+    label.includes('contact us') ||
+    url.includes('/contact-us.html')
+  ) {
+    return `${window.location.origin}/contact-us.html`
+  }
+
+  return ''
+})
+
 const embeddedUrl = computed(() => {
   if (!menuItem.value || isMarkdownMode.value) return ''
+  const staticUrl = builtinStaticPageUrl.value
+  if (staticUrl) {
+    return buildEmbeddedUrl(
+      staticUrl,
+      authStore.user?.id,
+      authStore.token,
+      pageTheme.value,
+      locale.value,
+    )
+  }
   return buildEmbeddedUrl(
     menuItem.value.url,
     authStore.user?.id,
