@@ -178,12 +178,15 @@ const builtinStaticPageUrl = computed(() => {
   const id = String(item.id || '').toLowerCase()
   const label = String(item.label || '').trim().toLowerCase()
   const url = String(item.url || '').trim().toLowerCase()
+  const apiBaseHost = getUrlHost(appStore.cachedPublicSettings?.api_base_url || appStore.apiBaseUrl)
+  const menuUrlHost = getUrlHost(item.url)
 
   if (
     id.includes('online-chat') ||
     label.includes('在线聊天') ||
     label.includes('online chat') ||
-    url.includes('/online-chat.html')
+    url.includes('/online-chat.html') ||
+    (apiBaseHost && menuUrlHost === apiBaseHost)
   ) {
     return `${window.location.origin}/online-chat.html`
   }
@@ -199,6 +202,16 @@ const builtinStaticPageUrl = computed(() => {
 
   return ''
 })
+
+function getUrlHost(value?: string): string {
+  const raw = String(value || '').trim()
+  if (!raw) return ''
+  try {
+    return new URL(raw, window.location.origin).host.toLowerCase()
+  } catch {
+    return ''
+  }
+}
 
 const embeddedUrl = computed(() => {
   if (!menuItem.value || isMarkdownMode.value) return ''
