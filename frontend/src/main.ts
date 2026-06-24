@@ -7,15 +7,12 @@ import { useAppStore } from '@/stores/app'
 import './style.css'
 
 function initThemeClass() {
-  const savedTheme = localStorage.getItem('theme')
-  const shouldUseDark =
-    savedTheme === 'dark' ||
-    (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)
-  document.documentElement.classList.toggle('dark', shouldUseDark)
+  document.documentElement.classList.remove('dark')
+  localStorage.setItem('theme', 'light')
 }
 
 async function bootstrap() {
-  // Apply theme class globally before app mount to keep all routes consistent.
+  // Force the app to use the light theme globally.
   initThemeClass()
 
   const app = createApp(App)

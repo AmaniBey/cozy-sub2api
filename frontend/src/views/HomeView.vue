@@ -15,7 +15,7 @@
   <!-- Default Home Page -->
   <div
     v-else
-    class="relative flex min-h-screen flex-col overflow-hidden bg-[#111111]"
+    class="relative flex min-h-screen flex-col overflow-hidden bg-gray-50"
   >
     <!-- Background Decorations -->
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
@@ -32,10 +32,10 @@
 
     <!-- Header -->
     <header class="relative z-20 px-6 py-4">
-      <nav class="mx-auto flex max-w-7xl items-center justify-between rounded-[24px] border border-[#2a2a2a] bg-[#171717]/95 px-4 py-3 shadow-card backdrop-blur-xl">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between rounded-[24px] border border-gray-200 bg-white/95 px-4 py-3 shadow-card backdrop-blur-xl">
         <!-- Logo -->
         <div class="flex items-center">
-          <div class="h-10 w-10 overflow-hidden rounded-xl border border-[#5f472f] bg-[#222] shadow-glow">
+          <div class="h-10 w-10 overflow-hidden rounded-xl border border-primary-200 bg-white shadow-glow">
             <img :src="siteLogo || '/logo.png'" alt="Logo" class="h-full w-full object-contain" />
           </div>
         </div>
@@ -51,36 +51,26 @@
             :href="docUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="rounded-lg p-2 text-gray-400 transition-colors hover:bg-[#242424] hover:text-white"
+            class="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
             :title="t('home.viewDocs')"
           >
             <Icon name="book" size="md" />
           </a>
 
-          <!-- Theme Toggle -->
-          <button
-            @click="toggleTheme"
-            class="rounded-lg p-2 text-gray-400 transition-colors hover:bg-[#242424] hover:text-white"
-            :title="isDark ? t('home.switchToLight') : t('home.switchToDark')"
-          >
-            <Icon v-if="isDark" name="sun" size="md" />
-            <Icon v-else name="moon" size="md" />
-          </button>
-
           <!-- Login / Dashboard Button -->
           <router-link
             v-if="isAuthenticated"
             :to="dashboardPath"
-            class="inline-flex items-center gap-1.5 rounded-full border border-[#2f2f2f] bg-[#222222] py-1 pl-1 pr-2.5 transition-colors hover:bg-[#2a2a2a]"
+            class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white py-1 pl-1 pr-2.5 transition-colors hover:bg-gray-50"
           >
             <span
               class="flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-primary-400 to-primary-500 text-[10px] font-semibold text-white"
             >
               {{ userInitial }}
             </span>
-            <span class="text-xs font-medium text-white">{{ t('home.dashboard') }}</span>
+            <span class="text-xs font-medium text-gray-800">{{ t('home.dashboard') }}</span>
             <svg
-              class="h-3 w-3 text-gray-400"
+              class="h-3 w-3 text-gray-500"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -96,7 +86,7 @@
           <router-link
             v-else
             to="/login"
-            class="inline-flex items-center rounded-full border border-[#2f2f2f] bg-[#222222] px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-[#2a2a2a]"
+            class="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-800 transition-colors hover:bg-gray-50"
           >
             {{ t('home.login') }}
           </router-link>
@@ -112,11 +102,11 @@
           <!-- Left: Text Content -->
           <div class="flex-1 text-center lg:text-left">
             <h1
-              class="mb-4 text-4xl font-semibold tracking-tight text-white md:text-5xl lg:text-6xl"
+              class="mb-4 text-4xl font-semibold tracking-tight text-gray-950 md:text-5xl lg:text-6xl"
             >
               {{ siteName }}
             </h1>
-            <p class="mb-8 text-lg text-gray-400 md:text-xl">
+            <p class="mb-8 text-lg text-gray-600 md:text-xl">
               {{ siteSubtitle }}
             </p>
 
@@ -173,26 +163,26 @@
         <!-- Feature Tags - Centered -->
         <div class="mb-12 flex flex-wrap items-center justify-center gap-4 md:gap-6">
           <div
-            class="inline-flex items-center gap-2.5 rounded-full border border-[#2d2d2d] bg-[#1b1b1b] px-5 py-2.5 shadow-sm backdrop-blur-sm"
+            class="inline-flex items-center gap-2.5 rounded-full border border-gray-200 bg-white px-5 py-2.5 shadow-sm backdrop-blur-sm"
           >
             <Icon name="swap" size="sm" class="text-primary-500" />
-            <span class="text-sm font-medium text-gray-200">{{
+            <span class="text-sm font-medium text-gray-700">{{
               t('home.tags.subscriptionToApi')
             }}</span>
           </div>
           <div
-            class="inline-flex items-center gap-2.5 rounded-full border border-[#2d2d2d] bg-[#1b1b1b] px-5 py-2.5 shadow-sm backdrop-blur-sm"
+            class="inline-flex items-center gap-2.5 rounded-full border border-gray-200 bg-white px-5 py-2.5 shadow-sm backdrop-blur-sm"
           >
             <Icon name="shield" size="sm" class="text-primary-500" />
-            <span class="text-sm font-medium text-gray-200">{{
+            <span class="text-sm font-medium text-gray-700">{{
               t('home.tags.stickySession')
             }}</span>
           </div>
           <div
-            class="inline-flex items-center gap-2.5 rounded-full border border-[#2d2d2d] bg-[#1b1b1b] px-5 py-2.5 shadow-sm backdrop-blur-sm"
+            class="inline-flex items-center gap-2.5 rounded-full border border-gray-200 bg-white px-5 py-2.5 shadow-sm backdrop-blur-sm"
           >
             <Icon name="chart" size="sm" class="text-primary-500" />
-            <span class="text-sm font-medium text-gray-200">{{
+            <span class="text-sm font-medium text-gray-700">{{
               t('home.tags.realtimeBilling')
             }}</span>
           </div>
@@ -202,24 +192,24 @@
         <div class="mb-12 grid gap-6 md:grid-cols-3">
           <!-- Feature 1: Unified Gateway -->
           <div
-            class="group rounded-2xl border border-[#2c2c2c] bg-[#1b1b1b] p-6 shadow-card backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#5f472f] hover:shadow-card-hover"
+            class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-card backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary-200 hover:shadow-card-hover"
           >
             <div
               class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#f97316] to-[#fb923c] shadow-glow transition-transform group-hover:scale-110"
             >
               <Icon name="server" size="lg" class="text-white" />
             </div>
-            <h3 class="mb-2 text-lg font-semibold text-white">
+            <h3 class="mb-2 text-lg font-semibold text-gray-950">
               {{ t('home.features.unifiedGateway') }}
             </h3>
-            <p class="text-sm leading-relaxed text-gray-400">
+            <p class="text-sm leading-relaxed text-gray-600">
               {{ t('home.features.unifiedGatewayDesc') }}
             </p>
           </div>
 
           <!-- Feature 2: Account Pool -->
           <div
-            class="group rounded-2xl border border-[#2c2c2c] bg-[#1b1b1b] p-6 shadow-card backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#5f472f] hover:shadow-card-hover"
+            class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-card backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary-200 hover:shadow-card-hover"
           >
             <div
               class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary-400 to-primary-500 shadow-glow transition-transform group-hover:scale-110"
@@ -238,17 +228,17 @@
                 />
               </svg>
             </div>
-            <h3 class="mb-2 text-lg font-semibold text-white">
+            <h3 class="mb-2 text-lg font-semibold text-gray-950">
               {{ t('home.features.multiAccount') }}
             </h3>
-            <p class="text-sm leading-relaxed text-gray-400">
+            <p class="text-sm leading-relaxed text-gray-600">
               {{ t('home.features.multiAccountDesc') }}
             </p>
           </div>
 
           <!-- Feature 3: Billing & Quota -->
           <div
-            class="group rounded-2xl border border-[#2c2c2c] bg-[#1b1b1b] p-6 shadow-card backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#5f472f] hover:shadow-card-hover"
+            class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-card backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary-200 hover:shadow-card-hover"
           >
             <div
               class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#a855f7] to-[#c084fc] shadow-glow transition-transform group-hover:scale-110"
@@ -267,10 +257,10 @@
                 />
               </svg>
             </div>
-            <h3 class="mb-2 text-lg font-semibold text-white">
+            <h3 class="mb-2 text-lg font-semibold text-gray-950">
               {{ t('home.features.balanceQuota') }}
             </h3>
-            <p class="text-sm leading-relaxed text-gray-400">
+            <p class="text-sm leading-relaxed text-gray-600">
               {{ t('home.features.balanceQuotaDesc') }}
             </p>
           </div>
@@ -278,10 +268,10 @@
 
         <!-- Supported Providers -->
         <div class="mb-8 text-center">
-          <h2 class="mb-3 text-2xl font-semibold text-white">
+          <h2 class="mb-3 text-2xl font-semibold text-gray-950">
             {{ t('home.providers.title') }}
           </h2>
-          <p class="text-sm text-gray-400">
+          <p class="text-sm text-gray-600">
             {{ t('home.providers.description') }}
           </p>
         </div>
@@ -289,14 +279,14 @@
         <div class="mb-16 flex flex-wrap items-center justify-center gap-4">
           <!-- Claude - Supported -->
           <div
-            class="flex items-center gap-2 rounded-xl border border-[#2f2f2f] bg-[#1b1b1b] px-5 py-3 ring-1 ring-primary-500/15 backdrop-blur-sm"
+            class="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 ring-1 ring-primary-500/15 backdrop-blur-sm"
           >
             <div
               class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-orange-400 to-orange-500"
             >
               <span class="text-xs font-bold text-white">C</span>
             </div>
-            <span class="text-sm font-medium text-gray-200">{{ t('home.providers.claude') }}</span>
+            <span class="text-sm font-medium text-gray-700">{{ t('home.providers.claude') }}</span>
             <span
               class="rounded bg-primary-500/15 px-1.5 py-0.5 text-[10px] font-medium text-primary-300"
               >{{ t('home.providers.supported') }}</span
@@ -304,12 +294,12 @@
           </div>
           <!-- GPT - Supported -->
           <div
-            class="flex items-center gap-2 rounded-xl border border-[#2f2f2f] bg-[#1b1b1b] px-5 py-3 ring-1 ring-primary-500/15 backdrop-blur-sm"
+            class="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 ring-1 ring-primary-500/15 backdrop-blur-sm"
           >
             <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600">
               <span class="text-xs font-bold text-white">G</span>
             </div>
-            <span class="text-sm font-medium text-gray-200">GPT</span>
+            <span class="text-sm font-medium text-gray-700">GPT</span>
             <span
               class="rounded bg-primary-500/15 px-1.5 py-0.5 text-[10px] font-medium text-primary-300"
               >{{ t('home.providers.supported') }}</span
@@ -317,12 +307,12 @@
           </div>
           <!-- Gemini - Supported -->
           <div
-            class="flex items-center gap-2 rounded-xl border border-[#2f2f2f] bg-[#1b1b1b] px-5 py-3 ring-1 ring-primary-500/15 backdrop-blur-sm"
+            class="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 ring-1 ring-primary-500/15 backdrop-blur-sm"
           >
             <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-600">
               <span class="text-xs font-bold text-white">G</span>
             </div>
-            <span class="text-sm font-medium text-gray-200">{{ t('home.providers.gemini') }}</span>
+            <span class="text-sm font-medium text-gray-700">{{ t('home.providers.gemini') }}</span>
             <span
               class="rounded bg-primary-500/15 px-1.5 py-0.5 text-[10px] font-medium text-primary-300"
               >{{ t('home.providers.supported') }}</span
@@ -330,14 +320,14 @@
           </div>
           <!-- Antigravity - Supported -->
           <div
-            class="flex items-center gap-2 rounded-xl border border-[#2f2f2f] bg-[#1b1b1b] px-5 py-3 ring-1 ring-primary-500/15 backdrop-blur-sm"
+            class="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 ring-1 ring-primary-500/15 backdrop-blur-sm"
           >
             <div
               class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-rose-500 to-pink-600"
             >
               <span class="text-xs font-bold text-white">A</span>
             </div>
-            <span class="text-sm font-medium text-gray-200">{{ t('home.providers.antigravity') }}</span>
+            <span class="text-sm font-medium text-gray-700">{{ t('home.providers.antigravity') }}</span>
             <span
               class="rounded bg-primary-500/15 px-1.5 py-0.5 text-[10px] font-medium text-primary-300"
               >{{ t('home.providers.supported') }}</span
@@ -345,16 +335,16 @@
           </div>
           <!-- More - Coming Soon -->
           <div
-            class="flex items-center gap-2 rounded-xl border border-[#2f2f2f] bg-[#1b1b1b]/70 px-5 py-3 opacity-70 backdrop-blur-sm"
+            class="flex items-center gap-2 rounded-xl border border-gray-200 bg-white/70 px-5 py-3 opacity-70 backdrop-blur-sm"
           >
             <div
               class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-gray-500 to-gray-600"
             >
               <span class="text-xs font-bold text-white">+</span>
             </div>
-            <span class="text-sm font-medium text-gray-200">{{ t('home.providers.more') }}</span>
+            <span class="text-sm font-medium text-gray-700">{{ t('home.providers.more') }}</span>
             <span
-              class="rounded bg-dark-700 px-1.5 py-0.5 text-[10px] font-medium text-gray-300"
+              class="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-600"
               >{{ t('home.providers.soon') }}</span
             >
           </div>
@@ -363,11 +353,11 @@
     </main>
 
     <!-- Footer -->
-    <footer class="relative z-10 border-t border-[#2a2a2a] px-6 py-8">
+    <footer class="relative z-10 border-t border-gray-200 px-6 py-8">
       <div
         class="mx-auto flex max-w-6xl flex-col items-center justify-center gap-4 text-center sm:flex-row sm:text-left"
       >
-        <p class="text-sm text-gray-400">
+        <p class="text-sm text-gray-500">
           &copy; {{ currentYear }} {{ siteName }}. {{ t('home.footer.allRightsReserved') }}
         </p>
         <div class="flex items-center gap-4">
@@ -376,7 +366,7 @@
             :href="docUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-sm text-gray-400 transition-colors hover:text-white"
+            class="text-sm text-gray-500 transition-colors hover:text-gray-900"
           >
             {{ t('home.docs') }}
           </a>
@@ -384,7 +374,7 @@
             :href="githubUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-sm text-gray-400 transition-colors hover:text-white"
+            class="text-sm text-gray-500 transition-colors hover:text-gray-900"
           >
             GitHub
           </a>
@@ -395,7 +385,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore, useAppStore } from '@/stores'
 import LocaleSwitcher from '@/components/common/LocaleSwitcher.vue'
@@ -419,9 +409,6 @@ const isHomeContentUrl = computed(() => {
   return content.startsWith('http://') || content.startsWith('https://')
 })
 
-// Theme
-const isDark = ref(document.documentElement.classList.contains('dark'))
-
 // GitHub URL
 const githubUrl = 'https://github.com/Wei-Shaw/sub2api'
 
@@ -438,28 +425,7 @@ const userInitial = computed(() => {
 // Current year for footer
 const currentYear = computed(() => new Date().getFullYear())
 
-// Toggle theme
-function toggleTheme() {
-  isDark.value = !isDark.value
-  document.documentElement.classList.toggle('dark', isDark.value)
-  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
-}
-
-// Initialize theme
-function initTheme() {
-  const savedTheme = localStorage.getItem('theme')
-  if (
-    savedTheme === 'dark' ||
-    (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)
-  ) {
-    isDark.value = true
-    document.documentElement.classList.add('dark')
-  }
-}
-
 onMounted(() => {
-  initTheme()
-
   // Check auth state
   authStore.checkAuth()
 

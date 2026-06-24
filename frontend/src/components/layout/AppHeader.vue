@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky top-0 z-30 border-b border-[#2d2d2d] bg-[#1a1a1a]/96 backdrop-blur-xl">
+  <header class="sticky top-0 z-30 border-b border-gray-200 bg-white/95 backdrop-blur-xl">
     <div class="flex h-16 items-center justify-between px-4 md:px-6">
       <!-- Left: Mobile Menu Toggle + Page Title -->
       <div class="flex items-center gap-4">
@@ -32,7 +32,7 @@
           :href="docUrl"
           target="_blank"
           rel="noopener noreferrer"
-            class="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-gray-300 transition-colors hover:bg-[#242424] hover:text-white"
+            class="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
         >
           <Icon name="book" size="sm" />
           <span class="hidden sm:inline">{{ t('nav.docs') }}</span>
@@ -47,7 +47,7 @@
         <!-- Balance Display -->
         <div
           v-if="user"
-            class="hidden items-center gap-2 rounded-xl border border-[#53391d] bg-[#251d17] px-3 py-1.5 sm:flex"
+            class="hidden items-center gap-2 rounded-xl border border-primary-200 bg-primary-50 px-3 py-1.5 sm:flex"
         >
           <svg
             class="h-4 w-4 text-primary-600 dark:text-primary-400"
@@ -71,7 +71,7 @@
         <div v-if="user" class="relative" ref="dropdownRef">
           <button
             @click="toggleDropdown"
-            class="flex items-center gap-2 rounded-xl p-1.5 transition-colors hover:bg-[#242424]"
+            class="flex items-center gap-2 rounded-xl p-1.5 transition-colors hover:bg-gray-100"
             aria-label="User Menu"
           >
             <div class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-xl border border-[#5f472f] bg-gradient-to-br from-primary-400 to-primary-500 text-sm font-medium text-white shadow-sm">
@@ -98,7 +98,7 @@
           <transition name="dropdown">
             <div v-if="dropdownOpen" class="dropdown right-0 mt-2 w-56">
               <!-- User Info -->
-                <div class="border-b border-dark-700 px-4 py-3">
+                <div class="border-b border-gray-200 px-4 py-3">
                 <div class="text-sm font-medium text-gray-900 dark:text-white">
                   {{ displayName }}
                 </div>
@@ -106,7 +106,7 @@
               </div>
 
               <!-- Balance (mobile only) -->
-                <div class="border-b border-dark-700 px-4 py-2 sm:hidden">
+                <div class="border-b border-gray-200 px-4 py-2 sm:hidden">
                 <div class="text-xs text-gray-500 dark:text-dark-400">
                   {{ t('common.balance') }}
                 </div>
@@ -149,7 +149,7 @@
               <!-- Contact Support (only show if configured) -->
               <div
                 v-if="contactInfo"
-                class="border-t border-dark-700 px-4 py-2.5"
+                class="border-t border-gray-200 px-4 py-2.5"
               >
                 <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                   <svg
@@ -172,7 +172,7 @@
                 </div>
               </div>
 
-                <div v-if="showOnboardingButton" class="border-t border-dark-700 py-1">
+                <div v-if="showOnboardingButton" class="border-t border-gray-200 py-1">
                 <button @click="handleReplayGuide" class="dropdown-item w-full">
                   <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                     <path
@@ -183,7 +183,7 @@
                 </button>
               </div>
 
-                <div class="border-t border-dark-700 py-1">
+                <div class="border-t border-gray-200 py-1">
                 <button
                   @click="handleLogout"
                   class="dropdown-item w-full text-red-400 hover:bg-red-500/10"
